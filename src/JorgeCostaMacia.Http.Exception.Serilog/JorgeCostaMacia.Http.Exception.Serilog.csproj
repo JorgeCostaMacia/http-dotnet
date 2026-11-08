@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<Description>Serilog exception handler that logs every unhandled exception (enriched with domain aggregate metadata and the authenticated user) without producing the response</Description>
+		<PackageTags>http,exception,serilog,logging,aspnetcore,middleware</PackageTags>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="FluentValidation" />
+		<PackageReference Include="JorgeCostaMacia.DDD.Exception" />
+		<PackageReference Include="Serilog" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<InternalsVisibleTo Include="JorgeCostaMacia.Http.Exception.Serilog.Tests" />
+	</ItemGroup>
+
+</Project>
