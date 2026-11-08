@@ -71,7 +71,7 @@ A skill listed here but missing on this machine is one command away: `claude plu
 - **`dotnet-test`** / **`dotnet-test-migration`** — running/generating tests; the xUnit.v3 / MTP setup.
 - **`dotnet-upgrade`** — migrating across target-framework versions.
 
-Not relevant to this repo (skip): `github-actions` / `github-actions-net` (the company's CI; this repo's runs on github-workflows), `dotnet-ai`, `dotnet-maui`, `dotnet-blazor`, `dotnet-data`, `dotnet-template-engine`, `dotnet11`, `dotnet-diag`, `dotnet-advanced`.
+Not relevant to this repo (skip): `dotnet-ai`, `dotnet-maui`, `dotnet-blazor`, `dotnet-data`, `dotnet-template-engine`, `dotnet11`, `dotnet-diag`, `dotnet-advanced`.
 
 ## Build & test
 
