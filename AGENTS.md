@@ -57,7 +57,7 @@ A skill listed here but missing on this machine is one command away: `claude plu
 
 - **`validation-dotnet`** — the boundary side of the validation spec: request validators via standard FluentValidation DI, and the family `ValidationException` failure list that **`Http.ProblemDetails` renders as per-field errors** — read it before touching exception handling or ProblemDetails.
 - **`ddd-dotnet`** (with **`ddd`**) — the exception family this repo translates to HTTP: typed `NotFound` / `Exist` / `Validation` exceptions with their fixed UUIDv7 codes.
-- **`logging-dotnet`** (with **`logging`**) — the logging style the `Http.Serilog` and `Http.Exception.Serilog` packages implement: fixed messages ("Request End", "Request Fail"), every variable value through the log context, correlation in every scope.
+- **`logging-dotnet`** (with **`logging`**) — the logging style the `Http.Serilog` and `Http.Exception.Serilog` packages implement: fixed messages ("RequestEnd", "RequestFail"), every variable value through the log context, correlation in every scope.
 - **`code-style-dotnet`** — how the C# is written: explicit types, the 120-column width with declarations and constructions vertical, comments wrapped too, the gates.
 - **`build-dotnet`** — the three-tier `Directory.Build.props`, the single `VersionPrefix`, CPM, the three-day package age, the NuGet audit as a build gate, the library's packing metadata, and the `nuget.config` base.
 - **`testing-dotnet`** (with **`testing`**) — xUnit v4 (the `xunit.v3` package) on Microsoft.Testing.Platform, the test project layout, the `TestServer` host suites with hand-written fakes.

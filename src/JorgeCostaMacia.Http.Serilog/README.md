@@ -26,7 +26,7 @@ app.UseBodyBufferMiddleware();          // enable body re-reading
 app.UseEnrichRequestMiddleware();       // scheme, host, ip, body, user-agent, X-Request-ID
 app.UseAuthentication();
 app.UseEnrichAuthenticationMiddleware(); // UserName (after auth)
-app.UseSerilogRequestLogging(options => options.WithDefaults());   // one "Request End" event per request
+app.UseSerilogRequestLogging(options => options.WithDefaults());   // one "RequestEnd" event per request
 ```
 
 The request-completion event is logged at **Error** for exceptions / 5xx, **Warning** for 4xx, and **Information** otherwise.

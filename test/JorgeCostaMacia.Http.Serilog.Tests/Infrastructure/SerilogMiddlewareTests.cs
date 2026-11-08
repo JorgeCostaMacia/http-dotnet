@@ -54,7 +54,7 @@ public sealed class SerilogMiddlewareTests
     }
 
     private LogEvent Completion()
-        => _sink.Events.Last(logEvent => logEvent.MessageTemplate.Text.Contains("Request End"));
+        => _sink.Events.Last(logEvent => logEvent.MessageTemplate.Text.Contains("RequestEnd"));
 
     [Fact]
     public async Task UseEnrichRequestMiddleware_WithAJsonBody_LogsTheBodyAndTheEndpointStillReadsIt()
