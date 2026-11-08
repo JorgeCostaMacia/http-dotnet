@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\src\JorgeCostaMacia.Http.Exception.Serilog\JorgeCostaMacia.Http.Exception.Serilog.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<!-- integration tests drive the handler through the real pipeline into a live Serilog sink -->
+		<PackageReference Include="Microsoft.AspNetCore.TestHost" />
+		<PackageReference Include="Serilog" />
+		<PackageReference Include="Serilog.AspNetCore" />
+	</ItemGroup>
+
+</Project>

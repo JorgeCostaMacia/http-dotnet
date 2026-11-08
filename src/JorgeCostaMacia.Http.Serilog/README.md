@@ -1,0 +1,55 @@
+# JorgeCostaMacia.Http.Serilog
+
+**Serilog request-logging middleware** for ASP.NET Core — request body buffering, request- and authentication-level log-context enrichment, and Serilog's per-request summary log event with a status-based log level.
+
+[![NuGet](https://img.shields.io/nuget/v/JorgeCostaMacia.Http.Serilog.svg)](https://www.nuget.org/packages/JorgeCostaMacia.Http.Serilog/)
+[![Downloads](https://img.shields.io/nuget/dt/JorgeCostaMacia.Http.Serilog.svg)](https://www.nuget.org/packages/JorgeCostaMacia.Http.Serilog/)
+[![Build](https://github.com/JorgeCostaMacia/http-dotnet/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/JorgeCostaMacia/http-dotnet/actions/workflows/main.yml)
+[![License](https://img.shields.io/github/license/JorgeCostaMacia/http-dotnet.svg)](https://github.com/JorgeCostaMacia/http-dotnet/blob/main/LICENSE.txt)
+
+---
+
+## Install
+
+```bash
+dotnet add package JorgeCostaMacia.Http.Serilog
+```
+
+## Usage
+
+Register in pipeline order:
+
+```csharp
+using JorgeCostaMacia.Http.Serilog.Infrastructure;
+
+app.UseBodyBufferMiddleware();          // enable body re-reading
+app.UseEnrichRequestMiddleware();       // scheme, host, ip, body, user-agent, X-Request-ID
+app.UseAuthentication();
+app.UseEnrichAuthenticationMiddleware(); // UserName (after auth)
+app.UseSerilogRequestLogging(options => options.WithDefaults());   // one "Request End" event per request
+```
+
+The request-completion event is logged at **Error** for exceptions / 5xx, **Warning** for 4xx, and **Information** otherwise.
+
+> **Note:** the enrichment logs the **complete request body** of POST/PUT/PATCH requests, by design (structured, queryable payloads in your log store). Anything the client sends — including credentials, if your API receives them in bodies — reaches the sink, and memory usage grows with the body size, so bound requests upstream (e.g. nginx `client_max_body_size` and per-IP limits) and keep authentication in headers or an external IdP.
+
+## Requirements
+
+The **.NET 10** SDK.
+
+Depends on [Serilog.AspNetCore](https://www.nuget.org/packages/Serilog.AspNetCore/) and the ASP.NET Core shared framework.
+
+## About
+
+`JorgeCostaMacia.Http.Serilog` is part of **[http-dotnet](https://github.com/JorgeCostaMacia/http-dotnet)** — extensions for ASP.NET Core, each scoped to a single concern and reusable across your services. An independent project, not affiliated with Microsoft or the ASP.NET Core project.
+
+- **Repository:** [github.com/JorgeCostaMacia/http-dotnet](https://github.com/JorgeCostaMacia/http-dotnet)
+- **Issues & requests:** [open an issue](https://github.com/JorgeCostaMacia/http-dotnet/issues)
+- **Contributing:** [CONTRIBUTING.md](https://github.com/JorgeCostaMacia/http-dotnet/blob/main/CONTRIBUTING.md)
+- **Security:** [report a vulnerability](https://github.com/JorgeCostaMacia/http-dotnet/security/advisories/new)
+
+**Author:** Jorge Costa Maciá
+
+- [LinkedIn](https://www.linkedin.com/in/jorge-costa-macia-842817164/)
+- [GitHub](https://github.com/JorgeCostaMacia/)
+- [Bitbucket](https://bitbucket.org/jorgecostamacia/)

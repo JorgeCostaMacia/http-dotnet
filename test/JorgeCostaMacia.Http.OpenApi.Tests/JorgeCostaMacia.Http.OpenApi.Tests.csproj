@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<!-- the test now calls AddOpenApi directly (like a host), which runs the OpenAPI XML-comment
+		     source generator here; Microsoft.AspNetCore.OpenApi arrives transitively so its build props
+		     don't auto-register the interceptor namespace — declare it so the generated interceptors compile. -->
+		<InterceptorsNamespaces>$(InterceptorsNamespaces);Microsoft.AspNetCore.OpenApi.Generated</InterceptorsNamespaces>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\src\JorgeCostaMacia.Http.OpenApi\JorgeCostaMacia.Http.OpenApi.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.TestHost" />
+	</ItemGroup>
+
+</Project>
