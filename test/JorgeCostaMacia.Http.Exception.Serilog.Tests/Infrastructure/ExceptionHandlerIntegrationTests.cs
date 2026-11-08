@@ -80,7 +80,7 @@ public sealed class ExceptionHandlerIntegrationTests
     }
 
     [Fact]
-    public async Task DomainException_LogsRequestFail_AtWarning_EnrichedWithAggregateMetadataAndUser()
+    public async Task TryHandleAsync_WithADomainException_LogsRequestFailAtWarningWithAggregateMetadataAndUser()
     {
         (WebApplication app, HttpClient client) = await App();
         await using (app)
@@ -97,7 +97,7 @@ public sealed class ExceptionHandlerIntegrationTests
     }
 
     [Fact]
-    public async Task UnexpectedException_LogsRequestCrash_AtError()
+    public async Task TryHandleAsync_WithAnUnexpectedException_LogsRequestCrashAtError()
     {
         (WebApplication app, HttpClient client) = await App();
         await using (app)

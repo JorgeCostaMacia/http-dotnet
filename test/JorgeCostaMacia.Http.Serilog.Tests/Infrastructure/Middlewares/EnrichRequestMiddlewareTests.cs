@@ -7,7 +7,7 @@ namespace JorgeCostaMacia.Http.Serilog.Tests.Infrastructure.Middlewares;
 public sealed class EnrichRequestMiddlewareTests
 {
     [Fact]
-    public async Task InvokeAsync_ReadsBody_ThenRewindsSoTheEndpointCanReadIt()
+    public async Task InvokeAsync_WithAJsonBody_ReadsItThenRewindsSoTheEndpointCanReadIt()
     {
         bool nextCalled = false;
         EnrichRequestMiddleware middleware = new EnrichRequestMiddleware(context =>

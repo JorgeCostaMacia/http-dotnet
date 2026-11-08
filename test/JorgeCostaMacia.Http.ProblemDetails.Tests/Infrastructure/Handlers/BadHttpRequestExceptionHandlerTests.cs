@@ -10,7 +10,7 @@ public sealed class BadHttpRequestExceptionHandlerTests
         => new Microsoft.AspNetCore.Http.ProblemDetailsContext() { HttpContext = new DefaultHttpContext() };
 
     [Fact]
-    public void Handle_NullsTheAggregateExtensions()
+    public void Handle_WithAnUnrecognizedWording_NullsTheAggregateExtensions()
     {
         Microsoft.AspNetCore.Http.ProblemDetailsContext ctx = Context();
 
@@ -22,7 +22,7 @@ public sealed class BadHttpRequestExceptionHandlerTests
     }
 
     [Fact]
-    public void Handle_UnrecognizedWording_KeepsErrorsPresentAndNull()
+    public void Handle_WithAnUnrecognizedWording_KeepsErrorsPresentAndNull()
     {
         // a runtime rewording (or another version's message) must not silently drop the field
         Microsoft.AspNetCore.Http.ProblemDetailsContext ctx = Context();
@@ -37,7 +37,7 @@ public sealed class BadHttpRequestExceptionHandlerTests
     }
 
     [Fact]
-    public void Handle_MissingBodyWording_MapsToRequestError()
+    public void Handle_WithTheMissingBodyWording_MapsToARequestError()
     {
         Microsoft.AspNetCore.Http.ProblemDetailsContext ctx = Context();
 
@@ -52,7 +52,7 @@ public sealed class BadHttpRequestExceptionHandlerTests
     }
 
     [Fact]
-    public void Handle_MissingBodyWording_Net10_MapsToRequestError()
+    public void Handle_WithTheNet10MissingBodyWording_MapsToARequestError()
     {
         // .NET 10 reworded the empty-body case to "Implicit body inferred ... but no body was provided."
         Microsoft.AspNetCore.Http.ProblemDetailsContext ctx = Context();
@@ -68,7 +68,7 @@ public sealed class BadHttpRequestExceptionHandlerTests
     }
 
     [Fact]
-    public void Handle_UnreadableJsonWording_MapsToRequestError()
+    public void Handle_WithTheUnreadableJsonWording_MapsToARequestError()
     {
         Microsoft.AspNetCore.Http.ProblemDetailsContext ctx = Context();
 
@@ -86,7 +86,7 @@ public sealed class BadHttpRequestExceptionHandlerTests
     // nothing was reaching these — they are the shape the runtime raises when the body deserializes
     // into a type with required members, and they have to keep working if that shape comes back.
     [Fact]
-    public void Handle_MissingRequiredProperties_MapsEachFieldToItsOwnError()
+    public void Handle_WithMissingRequiredProperties_MapsEachFieldToItsOwnError()
     {
         Microsoft.AspNetCore.Http.ProblemDetailsContext ctx = Context();
         // The runtime's own wording, verified against System.Text.Json on net10: the type is quoted too.
@@ -109,7 +109,7 @@ public sealed class BadHttpRequestExceptionHandlerTests
     // The field names are quoted in the message; when none can be pulled out, the report falls back to
     // one generic entry rather than an empty errors object.
     [Fact]
-    public void Handle_MissingRequiredProperties_WithNoExtractableField_FallsBackToOneRequestError()
+    public void Handle_WithMissingRequiredPropertiesButNoExtractableField_FallsBackToOneRequestError()
     {
         Microsoft.AspNetCore.Http.ProblemDetailsContext ctx = Context();
         JsonException inner = new JsonException("JSON deserialization for type 'Sample' was missing required properties including: 'request'; 'nested.field'.");
@@ -127,7 +127,7 @@ public sealed class BadHttpRequestExceptionHandlerTests
     }
 
     [Fact]
-    public void Handle_InvalidPropertyType_NamesTheFieldFromTheJsonPath()
+    public void Handle_WithAnInvalidPropertyType_NamesTheFieldFromTheJsonPath()
     {
         Microsoft.AspNetCore.Http.ProblemDetailsContext ctx = Context();
         // A real path from the runtime: $.age for a field that failed to convert.
@@ -151,7 +151,7 @@ public sealed class BadHttpRequestExceptionHandlerTests
 
     // A path with nothing after the root ("$.") names no field, so the report stays generic.
     [Fact]
-    public void Handle_InvalidPropertyType_WithNoFieldInThePath_FallsBackToOneRequestError()
+    public void Handle_WithAnInvalidPropertyTypeAndNoFieldInThePath_FallsBackToOneRequestError()
     {
         Microsoft.AspNetCore.Http.ProblemDetailsContext ctx = Context();
         JsonException inner = new JsonException(

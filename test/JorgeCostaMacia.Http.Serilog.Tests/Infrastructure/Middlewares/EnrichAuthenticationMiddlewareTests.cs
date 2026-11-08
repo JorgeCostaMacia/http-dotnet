@@ -6,7 +6,7 @@ namespace JorgeCostaMacia.Http.Serilog.Tests.Infrastructure.Middlewares;
 public sealed class EnrichAuthenticationMiddlewareTests
 {
     [Fact]
-    public async Task InvokeAsync_CallsNext_WithinTheLogContextScope()
+    public async Task InvokeAsync_WithAnAnonymousUser_CallsNext()
     {
         bool nextCalled = false;
         EnrichAuthenticationMiddleware middleware = new EnrichAuthenticationMiddleware(context =>

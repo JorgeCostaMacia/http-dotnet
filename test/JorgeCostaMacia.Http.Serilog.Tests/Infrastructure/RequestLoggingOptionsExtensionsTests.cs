@@ -25,7 +25,7 @@ public sealed class RequestLoggingOptionsExtensionsTests
     }
 
     [Fact]
-    public void WithDefaults_ReturnsTheSameOptions_SoItChains()
+    public void WithDefaults_OnNewOptions_ReturnsTheSameInstanceForChaining()
     {
         RequestLoggingOptions options = new RequestLoggingOptions();
 
@@ -33,7 +33,7 @@ public sealed class RequestLoggingOptionsExtensionsTests
     }
 
     [Fact]
-    public void WithDefaults_SetsTheFixedMessageTemplate()
+    public void WithDefaults_OnNewOptions_SetsTheFixedMessageTemplate()
         => Assert.Equal("Request End", Configured().MessageTemplate);
 
     // An exception outranks the status code: a request that threw is an error even if the response was
@@ -67,7 +67,7 @@ public sealed class RequestLoggingOptionsExtensionsTests
     // The boundaries the comparisons actually use: 399 is still Information and 499 still Warning, so a
     // ">=" slipped in for a ">" would show up here.
     [Fact]
-    public void GetLevel_AtTheBoundaries_KeepsTheLowerLevel()
+    public void GetLevel_AtEachSideOfTheThresholds_SwitchesTheLevelAt400And500()
     {
         RequestLoggingOptions options = Configured();
 

@@ -49,7 +49,7 @@ public sealed class ExceptionHandlerTests
             TestContext.Current.CancellationToken);
 
     [Fact]
-    public async Task DomainException_LogsWarning()
+    public async Task TryHandleAsync_WithADomainException_LogsWarning()
     {
         await Handle(new TestDomainException("boom"));
 
@@ -57,7 +57,7 @@ public sealed class ExceptionHandlerTests
     }
 
     [Fact]
-    public async Task BadHttpRequestException_LogsWarning()
+    public async Task TryHandleAsync_WithABadHttpRequestException_LogsWarning()
     {
         await Handle(new BadHttpRequestException("bad"));
 
@@ -65,7 +65,7 @@ public sealed class ExceptionHandlerTests
     }
 
     [Fact]
-    public async Task FluentValidationException_LogsWarning()
+    public async Task TryHandleAsync_WithAFluentValidationException_LogsWarning()
     {
         await Handle(new FluentValidation.ValidationException(new List<ValidationFailure>()));
 
@@ -73,7 +73,7 @@ public sealed class ExceptionHandlerTests
     }
 
     [Fact]
-    public async Task UnexpectedException_LogsError()
+    public async Task TryHandleAsync_WithAnUnexpectedException_LogsError()
     {
         await Handle(new InvalidOperationException("crash"));
 
@@ -81,6 +81,6 @@ public sealed class ExceptionHandlerTests
     }
 
     [Fact]
-    public async Task AlwaysReturnsFalse_SoThePipelineStillProducesTheResponse()
+    public async Task TryHandleAsync_WithADomainException_ReturnsFalseSoThePipelineStillProducesTheResponse()
         => Assert.False(await Handle(new TestDomainException("boom")));
 }

@@ -9,7 +9,7 @@ namespace JorgeCostaMacia.Http.ForwardedHeaders.Tests.Infrastructure;
 public sealed class ForwardedHeadersOptionsExtensionsTests
 {
     [Fact]
-    public void WithDefaults_ReturnsSameOptions_ForChaining()
+    public void WithDefaults_OnNewOptions_ReturnsTheSameInstanceForChaining()
     {
         ForwardedHeadersOptions options = new ForwardedHeadersOptions();
 
@@ -17,7 +17,7 @@ public sealed class ForwardedHeadersOptionsExtensionsTests
     }
 
     [Fact]
-    public void WithDefaults_HonoursForHostAndProto()
+    public void WithDefaults_OnNewOptions_HonoursForHostAndProto()
         => Assert.Equal(
             ForwardedHeaderFlags.XForwardedFor
                 | ForwardedHeaderFlags.XForwardedHost
@@ -25,7 +25,7 @@ public sealed class ForwardedHeadersOptionsExtensionsTests
             new ForwardedHeadersOptions().WithDefaults().ForwardedHeaders);
 
     [Fact]
-    public void WithDefaults_TrustsTheLoopbacks()
+    public void WithDefaults_OnNewOptions_TrustsTheLoopbacks()
     {
         ForwardedHeadersOptions options = new ForwardedHeadersOptions().WithDefaults();
 
@@ -35,14 +35,14 @@ public sealed class ForwardedHeadersOptionsExtensionsTests
     }
 
     [Fact]
-    public void WithDefaults_TrustsDockersDefaultBridge()
+    public void WithDefaults_OnNewOptions_TrustsDockersDefaultBridge()
         => Assert.Contains(
             new IPNetwork(IPAddress.Parse("172.17.0.0"), 16),
             new ForwardedHeadersOptions().WithDefaults().KnownIPNetworks);
 
     // added to the framework's trusted addresses, never in their place
     [Fact]
-    public void WithDefaults_KeepsTheFrameworksTrustedAddresses()
+    public void WithDefaults_OnOptionsWithTheFrameworksTrustedAddresses_KeepsThem()
     {
         ForwardedHeadersOptions framework = new ForwardedHeadersOptions();
         ForwardedHeadersOptions options = new ForwardedHeadersOptions().WithDefaults();
