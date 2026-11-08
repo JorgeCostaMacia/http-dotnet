@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<Description>Global HTTP exception-handling middleware that maps domain, validation and bad-request exceptions to the right HTTP status code</Description>
+		<PackageTags>http,exception,aspnetcore,middleware,error,domain</PackageTags>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="FluentValidation" />
+		<PackageReference Include="JorgeCostaMacia.DDD.Exception" />
+	</ItemGroup>
+
+</Project>
