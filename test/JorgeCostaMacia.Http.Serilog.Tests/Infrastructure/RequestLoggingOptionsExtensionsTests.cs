@@ -34,7 +34,7 @@ public sealed class RequestLoggingOptionsExtensionsTests
 
     [Fact]
     public void WithDefaults_OnNewOptions_SetsTheFixedMessageTemplate()
-        => Assert.Equal("Request End", Configured().MessageTemplate);
+        => Assert.Equal("RequestEnd", Configured().MessageTemplate);
 
     // An exception outranks the status code: a request that threw is an error even if the response was
     // already written with a 2xx.
