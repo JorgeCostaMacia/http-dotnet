@@ -29,7 +29,7 @@ file sealed class TestDomainException : DomainException
 /// End-to-end tests over <see cref="ExceptionHandler"/> — registered from the host as
 /// <c>AddExceptionHandler&lt;ExceptionHandler&gt;()</c> — through the real ASP.NET Core exception
 /// pipeline into a live Serilog sink. The unit tests assert only the log LEVEL
-/// against an <see cref="ILogger"/> fake; only here do the fixed message ("Request Fail"/"Request Crash")
+/// against an <see cref="ILogger"/> fake; only here do the fixed message ("RequestFail"/"RequestCrash")
 /// and the <c>LogContext</c> enrichment (aggregate metadata + user name) actually reach an emitted event.
 /// </summary>
 public sealed class ExceptionHandlerIntegrationTests
@@ -80,14 +80,14 @@ public sealed class ExceptionHandlerIntegrationTests
     }
 
     [Fact]
-    public async Task DomainException_LogsRequestFail_AtWarning_EnrichedWithAggregateMetadataAndUser()
+    public async Task TryHandleAsync_WithADomainException_LogsRequestFailAtWarningWithAggregateMetadataAndUser()
     {
         (WebApplication app, HttpClient client) = await App();
         await using (app)
         {
             await client.GetAsync("/domain", TestContext.Current.CancellationToken);
 
-            LogEvent logEvent = _sink.Last("Request Fail");
+            LogEvent logEvent = _sink.Last("RequestFail");
             Assert.Equal(LogEventLevel.Warning, logEvent.Level);
             Assert.True(logEvent.Properties.ContainsKey("ExceptionAggregateId"));
             Assert.True(logEvent.Properties.ContainsKey("ExceptionAggregateCode"));
@@ -97,14 +97,14 @@ public sealed class ExceptionHandlerIntegrationTests
     }
 
     [Fact]
-    public async Task UnexpectedException_LogsRequestCrash_AtError()
+    public async Task TryHandleAsync_WithAnUnexpectedException_LogsRequestCrashAtError()
     {
         (WebApplication app, HttpClient client) = await App();
         await using (app)
         {
             await client.GetAsync("/boom", TestContext.Current.CancellationToken);
 
-            Assert.Equal(LogEventLevel.Error, _sink.Last("Request Crash").Level);
+            Assert.Equal(LogEventLevel.Error, _sink.Last("RequestCrash").Level);
         }
     }
 }

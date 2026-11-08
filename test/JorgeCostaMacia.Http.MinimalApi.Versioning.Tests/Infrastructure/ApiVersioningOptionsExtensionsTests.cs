@@ -6,7 +6,7 @@ namespace JorgeCostaMacia.Http.MinimalApi.Versioning.Tests.Infrastructure;
 public sealed class ApiVersioningOptionsExtensionsTests
 {
     [Fact]
-    public void WithDefaults_ReturnsSameOptions_ForChaining()
+    public void WithDefaults_OnNewOptions_ReturnsTheSameInstanceForChaining()
     {
         ApiVersioningOptions options = new ApiVersioningOptions();
 
@@ -14,7 +14,7 @@ public sealed class ApiVersioningOptionsExtensionsTests
     }
 
     [Fact]
-    public void WithDefaults_ConfiguresUrlSegmentVersioning_FromTheGivenVersion()
+    public void WithDefaults_WithAMajorVersion_ConfiguresUrlSegmentVersioningFromIt()
     {
         ApiVersioningOptions options = new ApiVersioningOptions().WithDefaults(2);
 
@@ -25,14 +25,14 @@ public sealed class ApiVersioningOptionsExtensionsTests
     }
 
     [Fact]
-    public void WithDefaults_DefaultsToVersionOne_WhenNoVersionGiven()
+    public void WithDefaults_WithNoVersion_DefaultsToVersionOne()
         => Assert.Equal(new ApiVersion(1), new ApiVersioningOptions().WithDefaults().DefaultApiVersion);
 
     [Fact]
-    public void WithDefaults_DefaultsToVersionOne_WhenNull()
+    public void WithDefaults_WithANullVersion_DefaultsToVersionOne()
         => Assert.Equal(new ApiVersion(1), new ApiVersioningOptions().WithDefaults(null).DefaultApiVersion);
 
     [Fact]
-    public void WithDefaults_SetsMajorAndMinor_WhenMinorGiven()
+    public void WithDefaults_WithAMinorVersion_SetsMajorAndMinor()
         => Assert.Equal(new ApiVersion(2, 1), new ApiVersioningOptions().WithDefaults(2, 1).DefaultApiVersion);
 }

@@ -41,7 +41,7 @@ public sealed class DomainExceptionHandlerTests
         => new Microsoft.AspNetCore.Http.ProblemDetailsContext() { HttpContext = new DefaultHttpContext() };
 
     [Fact]
-    public void Handle_AddsAggregateExtensions_WithConvertedKeys_AndRawTypeValue()
+    public void Handle_WithADomainException_AddsAggregateExtensionsWithConvertedKeysAndRawTypeValue()
     {
         Microsoft.AspNetCore.Http.ProblemDetailsContext ctx = Context();
         TestDomainException exception = new TestDomainException("boom");
@@ -55,7 +55,7 @@ public sealed class DomainExceptionHandlerTests
     }
 
     [Fact]
-    public void Handle_NonValidation_KeepsErrorsPresentAndNull()
+    public void Handle_WithANonValidationException_KeepsErrorsPresentAndNull()
     {
         Microsoft.AspNetCore.Http.ProblemDetailsContext ctx = Context();
 
@@ -66,7 +66,7 @@ public sealed class DomainExceptionHandlerTests
     }
 
     [Fact]
-    public void Handle_Validation_GroupsErrorsByPropertyName_RewritingMessages()
+    public void Handle_WithAValidationException_GroupsErrorsByPropertyNameRewritingMessages()
     {
         Microsoft.AspNetCore.Http.ProblemDetailsContext ctx = Context();
         TestValidationException exception = new TestValidationException(
@@ -80,7 +80,7 @@ public sealed class DomainExceptionHandlerTests
     }
 
     [Fact]
-    public void Handle_Validation_MergesPropertiesThatCollideUnderThePolicy()
+    public void Handle_WithPropertiesThatCollideUnderThePolicy_MergesTheirErrors()
     {
         // "Id" and "ID" both camelCase to "id": they must merge, not blow up ToDictionary.
         Microsoft.AspNetCore.Http.ProblemDetailsContext ctx = Context();

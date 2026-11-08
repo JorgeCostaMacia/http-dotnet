@@ -15,7 +15,7 @@ public sealed class RequestHttpTests
     }
 
     [Fact]
-    public void Defaults_GenerateIdCorrelationAndUtcTimestamp()
+    public void Ctor_WithNullValues_GeneratesIdCorrelationAndUtcTimestamp()
     {
         DateTime before = DateTime.UtcNow;
         TestRequest request = new TestRequest(
@@ -31,7 +31,7 @@ public sealed class RequestHttpTests
     }
 
     [Fact]
-    public void Correlation_DefaultsToTheSuppliedId()
+    public void Ctor_WithAnIdButNoCorrelation_DefaultsTheCorrelationToTheId()
     {
         Guid id = Guid.NewGuid();
 
@@ -44,7 +44,7 @@ public sealed class RequestHttpTests
     }
 
     [Fact]
-    public void Keeps_SuppliedValues()
+    public void Ctor_WithEveryValueSupplied_KeepsTheSuppliedValues()
     {
         Guid id = Guid.NewGuid();
         Guid correlation = Guid.NewGuid();

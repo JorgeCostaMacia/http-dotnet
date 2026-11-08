@@ -99,7 +99,7 @@ public sealed class ProblemDetailsOptionsExtensionsIntegrationTests
     }
 
     [Fact]
-    public async Task Response_ContentType_IsApplicationProblemJson()
+    public async Task WithDefaults_WithADomainException_RespondsWithApplicationProblemJson()
     {
         (WebApplication app, HttpClient client) = await App();
         await using (app)
@@ -111,7 +111,7 @@ public sealed class ProblemDetailsOptionsExtensionsIntegrationTests
     }
 
     [Fact]
-    public async Task DomainException_Body_UsesConvertedKeys_AndRawTypeValue()
+    public async Task WithDefaults_WithADomainException_WritesConvertedKeysAndTheRawTypeValue()
     {
         (WebApplication app, HttpClient client) = await App();
         await using (app)
@@ -129,7 +129,7 @@ public sealed class ProblemDetailsOptionsExtensionsIntegrationTests
     }
 
     [Fact]
-    public async Task EveryErrorResponse_CarriesRequestIdTraceIdAndNodeId()
+    public async Task WithDefaults_WithADomainException_CarriesRequestIdTraceIdAndNodeId()
     {
         (WebApplication app, HttpClient client) = await App();
         await using (app)
@@ -144,7 +144,7 @@ public sealed class ProblemDetailsOptionsExtensionsIntegrationTests
     }
 
     [Fact]
-    public async Task DomainValidationException_Body_GroupsErrorsByConvertedFieldName()
+    public async Task WithDefaults_WithADomainValidationException_GroupsErrorsByConvertedFieldName()
     {
         (WebApplication app, HttpClient client) = await App();
         await using (app)
@@ -159,7 +159,7 @@ public sealed class ProblemDetailsOptionsExtensionsIntegrationTests
     }
 
     [Fact]
-    public async Task RawFluentValidationException_Body_GroupsErrorsByConvertedFieldName()
+    public async Task WithDefaults_WithARawFluentValidationException_GroupsErrorsByConvertedFieldName()
     {
         (WebApplication app, HttpClient client) = await App();
         await using (app)
@@ -174,7 +174,7 @@ public sealed class ProblemDetailsOptionsExtensionsIntegrationTests
     }
 
     [Fact]
-    public async Task UnexpectedException_Body_NullsAggregateMetadataAndErrors()
+    public async Task WithDefaults_WithAnUnexpectedException_NullsAggregateMetadataAndErrors()
     {
         (WebApplication app, HttpClient client) = await App();
         await using (app)
@@ -188,7 +188,7 @@ public sealed class ProblemDetailsOptionsExtensionsIntegrationTests
     }
 
     [Fact]
-    public async Task BadHttpRequest_InvalidFieldType_Body_GroupsErrorByConvertedFieldName()
+    public async Task WithDefaults_WithAnInvalidFieldTypeInTheBody_GroupsTheErrorByConvertedFieldName()
     {
         (WebApplication app, HttpClient client) = await App();
         await using (app)
@@ -204,7 +204,7 @@ public sealed class ProblemDetailsOptionsExtensionsIntegrationTests
     }
 
     [Fact]
-    public async Task BadHttpRequest_EmptyBody_Body_ReportsMissingBody()
+    public async Task WithDefaults_WithAnEmptyBody_ReportsTheMissingBody()
     {
         // .NET 10's empty-body wording ("Implicit body inferred ... but no body was provided.") differs
         // from older runtimes' ("Required parameter ... was not provided from body."); the handler must

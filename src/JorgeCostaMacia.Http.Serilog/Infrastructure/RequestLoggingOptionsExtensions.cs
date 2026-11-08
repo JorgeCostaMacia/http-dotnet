@@ -16,7 +16,7 @@ public static class RequestLoggingOptionsExtensions
     /// Adds <c>UserName</c> to the logged request-completion event, classifies the log level by status
     /// code and exception (<see cref="LogEventLevel.Error"/> for exceptions and 5xx responses,
     /// <see cref="LogEventLevel.Warning"/> for 4xx, <see cref="LogEventLevel.Information"/> otherwise), and
-    /// sets the message template to <c>"Request End"</c>.
+    /// sets the message template to <c>"RequestEnd"</c>.
     /// </summary>
     /// <param name="options">The options to configure.</param>
     /// <returns>The same <paramref name="options"/>, for chaining.</returns>
@@ -45,7 +45,7 @@ public static class RequestLoggingOptionsExtensions
             return LogEventLevel.Information;
         };
 
-        options.MessageTemplate = "Request End";
+        options.MessageTemplate = "RequestEnd";
 
         return options;
     }

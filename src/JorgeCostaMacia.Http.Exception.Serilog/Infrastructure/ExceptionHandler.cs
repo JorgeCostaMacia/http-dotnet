@@ -57,11 +57,11 @@ public sealed class ExceptionHandler : IExceptionHandler
         {
             if (exception is DomainException or BadHttpRequestException or FluentValidation.ValidationException)
             {
-                _logger.LogWarning(exception, "Request Fail");
+                _logger.LogWarning(exception, "RequestFail");
             }
             else
             {
-                _logger.LogError(exception, "Request Crash");
+                _logger.LogError(exception, "RequestCrash");
             }
         }
 

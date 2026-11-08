@@ -42,6 +42,7 @@ public sealed class SerilogMiddlewareTests
             async (HttpRequest request) =>
             {
                 using StreamReader reader = new StreamReader(request.Body);
+
                 return Results.Text(await reader.ReadToEndAsync());
             });
         app.MapGet("/ok", () => Results.Ok());
@@ -53,10 +54,10 @@ public sealed class SerilogMiddlewareTests
     }
 
     private LogEvent Completion()
-        => _sink.Events.Last(logEvent => logEvent.MessageTemplate.Text.Contains("Request End"));
+        => _sink.Events.Last(logEvent => logEvent.MessageTemplate.Text.Contains("RequestEnd"));
 
     [Fact]
-    public async Task Body_IsCaptured_AndTheEndpointCanStillReadIt()
+    public async Task UseEnrichRequestMiddleware_WithAJsonBody_LogsTheBodyAndTheEndpointStillReadsIt()
     {
         (WebApplication app, HttpClient client) = await App();
         await using (app)
@@ -78,7 +79,7 @@ public sealed class SerilogMiddlewareTests
     }
 
     [Fact]
-    public async Task Completion_LogsInformation_OnSuccess()
+    public async Task WithDefaults_WithAnOkResponse_LogsTheCompletionAtInformation()
     {
         (WebApplication app, HttpClient client) = await App();
         await using (app)
@@ -90,7 +91,7 @@ public sealed class SerilogMiddlewareTests
     }
 
     [Fact]
-    public async Task Completion_LogsWarning_OnClientError()
+    public async Task WithDefaults_WithANotFoundResponse_LogsTheCompletionAtWarning()
     {
         (WebApplication app, HttpClient client) = await App();
         await using (app)
