@@ -6,7 +6,7 @@ namespace JorgeCostaMacia.Http.MinimalApi.Versioning.Tests.Infrastructure;
 public sealed class ApiExplorerOptionsExtensionsTests
 {
     [Fact]
-    public void WithDefaults_ReturnsSameOptions_ForChaining()
+    public void WithDefaults_OnNewOptions_ReturnsTheSameInstanceForChaining()
     {
         ApiExplorerOptions options = new ApiExplorerOptions();
 
@@ -14,7 +14,7 @@ public sealed class ApiExplorerOptionsExtensionsTests
     }
 
     [Fact]
-    public void WithDefaults_ConfiguresVersionedGroupNamesAndUrlSubstitution()
+    public void WithDefaults_WithNoGroupNameFormat_ConfiguresVersionedGroupNamesAndUrlSubstitution()
     {
         ApiExplorerOptions options = new ApiExplorerOptions().WithDefaults();
 
@@ -23,6 +23,6 @@ public sealed class ApiExplorerOptionsExtensionsTests
     }
 
     [Fact]
-    public void WithDefaults_UsesTheGivenGroupNameFormat_WhenProvided()
+    public void WithDefaults_WithAGroupNameFormat_UsesTheGivenFormat()
         => Assert.Equal("'v'VVV", new ApiExplorerOptions().WithDefaults("'v'VVV").GroupNameFormat);
 }

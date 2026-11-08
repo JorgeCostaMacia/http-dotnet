@@ -37,7 +37,7 @@ public sealed class ProblemDetailsSchemaTransformerTests
         => (await Schemas()).GetProperty("ProblemDetails").GetProperty("properties");
 
     [Fact]
-    public async Task Schema_DeclaresTheEnrichmentProperties()
+    public async Task TransformAsync_OnProblemDetails_DeclaresTheEnrichmentProperties()
     {
         JsonElement properties = await ProblemDetailsSchema();
 
@@ -51,7 +51,7 @@ public sealed class ProblemDetailsSchemaTransformerTests
     }
 
     [Fact]
-    public async Task Errors_IsADictionaryOfMessageArrays_NotNullOnly()
+    public async Task TransformAsync_OnProblemDetails_TypesErrorsAsANullableDictionaryOfMessageArrays()
     {
         JsonElement errors = (await ProblemDetailsSchema()).GetProperty("errors");
         string raw = errors.GetRawText();
@@ -63,7 +63,7 @@ public sealed class ProblemDetailsSchemaTransformerTests
     }
 
     [Fact]
-    public async Task ValidationProblemDetailsSchema_DeclaresTheTracingAndAggregateProperties()
+    public async Task TransformAsync_OnHttpValidationProblemDetails_DeclaresTheTracingAndAggregateProperties()
     {
         JsonElement schemas = await Schemas();
 

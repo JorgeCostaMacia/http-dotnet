@@ -72,25 +72,25 @@ public sealed class ExceptionHandlerOptionsExtensionsTests
     }
 
     [Fact]
-    public async Task NotFoundException_MapsTo404()
+    public async Task WithDefaultStatusCodes_WithANotFoundException_Returns404()
         => Assert.Equal(HttpStatusCode.NotFound, (await Request(new TestNotFoundException())).StatusCode);
 
     [Fact]
-    public async Task ExistException_MapsTo409()
+    public async Task WithDefaultStatusCodes_WithAnExistException_Returns409()
         => Assert.Equal(HttpStatusCode.Conflict, (await Request(new TestExistException())).StatusCode);
 
     [Fact]
-    public async Task DomainValidationException_MapsTo400()
+    public async Task WithDefaultStatusCodes_WithADomainValidationException_Returns400()
         => Assert.Equal(HttpStatusCode.BadRequest, (await Request(new TestValidationException())).StatusCode);
 
     [Fact]
-    public async Task FluentValidationException_MapsTo400()
+    public async Task WithDefaultStatusCodes_WithAFluentValidationException_Returns400()
         => Assert.Equal(
             HttpStatusCode.BadRequest,
             (await Request(new FluentValidation.ValidationException(new List<ValidationFailure>()))).StatusCode);
 
     [Fact]
-    public async Task BadHttpRequestException_UsesItsOwnStatusCode()
+    public async Task WithDefaultStatusCodes_WithABadHttpRequestException_ReturnsItsOwnStatusCode()
         => Assert.Equal(
             HttpStatusCode.UnsupportedMediaType,
             (await Request(new BadHttpRequestException(
@@ -98,23 +98,23 @@ public sealed class ExceptionHandlerOptionsExtensionsTests
                 StatusCodes.Status415UnsupportedMediaType))).StatusCode);
 
     [Fact]
-    public async Task UnauthorizedAccessException_MapsTo403()
+    public async Task WithDefaultStatusCodes_WithAnUnauthorizedAccessException_Returns403()
         => Assert.Equal(HttpStatusCode.Forbidden, (await Request(new UnauthorizedAccessException())).StatusCode);
 
     [Fact]
-    public async Task NotImplementedException_MapsTo501()
+    public async Task WithDefaultStatusCodes_WithANotImplementedException_Returns501()
         => Assert.Equal(HttpStatusCode.NotImplemented, (await Request(new NotImplementedException())).StatusCode);
 
     [Fact]
-    public async Task OperationCanceledException_MapsTo499()
+    public async Task WithDefaultStatusCodes_WithAnOperationCanceledException_Returns499()
         => Assert.Equal((HttpStatusCode)499, (await Request(new OperationCanceledException())).StatusCode);
 
     [Fact]
-    public async Task TaskCanceledException_MapsTo499_ViaItsOperationCanceledBase()
+    public async Task WithDefaultStatusCodes_WithATaskCanceledException_Returns499ViaItsOperationCanceledBase()
         => Assert.Equal((HttpStatusCode)499, (await Request(new TaskCanceledException())).StatusCode);
 
     [Fact]
-    public async Task UnexpectedException_MapsTo500()
+    public async Task WithDefaultStatusCodes_WithAnUnexpectedException_Returns500()
         => Assert.Equal(
             HttpStatusCode.InternalServerError,
             (await Request(new InvalidOperationException("crash"))).StatusCode);

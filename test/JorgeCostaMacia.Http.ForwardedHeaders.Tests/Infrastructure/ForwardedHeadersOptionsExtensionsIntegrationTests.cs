@@ -39,7 +39,7 @@ public sealed class ForwardedHeadersOptionsExtensionsIntegrationTests
     }
 
     [Fact]
-    public async Task FromDockersBridge_TheRequestTakesTheProxysClientSchemeAndHost()
+    public async Task WithDefaults_WithHeadersFromDockersBridge_TakesTheProxysClientSchemeAndHost()
     {
         HttpContext context = await Send(IPAddress.Parse("172.17.0.1"));
 
@@ -49,12 +49,12 @@ public sealed class ForwardedHeadersOptionsExtensionsIntegrationTests
     }
 
     [Fact]
-    public async Task FromTheLoopback_TheRequestTakesTheProxysClient()
+    public async Task WithDefaults_WithHeadersFromTheLoopback_TakesTheProxysClient()
         => Assert.Equal(IPAddress.Parse("203.0.113.7"), (await Send(IPAddress.Loopback)).Connection.RemoteIpAddress);
 
     // a client that sends the headers itself cannot forge its address or scheme
     [Fact]
-    public async Task FromAnUntrustedAddress_TheHeadersAreIgnored()
+    public async Task WithDefaults_WithHeadersFromAnUntrustedAddress_IgnoresThem()
     {
         HttpContext context = await Send(IPAddress.Parse("198.51.100.9"));
 
