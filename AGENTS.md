@@ -1,6 +1,6 @@
 # http-dotnet — working in this repo
 
-ASP.NET Core building blocks — request/response abstractions, exception handling, ProblemDetails, OpenAPI, API versioning, forwarded headers and Serilog request logging — each scoped to a single concern and shipped independently on NuGet under `JorgeCostaMacia.Http.*`. Part of the `JorgeCostaMacia.*` family, on top of the **ddd-dotnet** foundation (consumed as published NuGet packages). Moved out of **http-net** in 5.0.0, keeping the package ids: 5.0.0 is a major because the exceptions the handlers map now come from `JorgeCostaMacia.DDD.Exception` (ddd-dotnet). An independent project, not affiliated with Microsoft or the ASP.NET Core project.
+ASP.NET Core building blocks — request/response abstractions, exception handling, ProblemDetails, OpenAPI, API versioning, forwarded headers and Serilog request logging — each scoped to a single concern and shipped independently on NuGet under `JorgeCostaMacia.Http.*`. Part of the `JorgeCostaMacia.*` family, on top of the **ddd-dotnet** foundation (consumed as published NuGet packages). An independent project, not affiliated with Microsoft or the ASP.NET Core project.
 
 ## Layout
 
@@ -63,6 +63,7 @@ A skill listed here but missing on this machine is one command away: `claude plu
 - **`testing-dotnet`** (with **`testing`**) — xUnit v4 (the `xunit.v3` package) on Microsoft.Testing.Platform, the test project layout, the `TestServer` host suites with hand-written fakes.
 - **`clean-architecture-dotnet`** (with **`clean-architecture`**) / **`solid`** — these packages are the Presentation-side toolkit (thin delivery, transport mapping at the boundary) a host composes; design review of the public surface (middleware, `Use`/`Add` extensions, handlers).
 - **`gitflow`** — all branch/release work (see *Branching & releases* above).
+- **`changelog`** — the `CHANGELOG.md` entry a release adds when it asks something of the packages' consumers (a major, a new requirement, a changed default, a renamed log message), written with the version bump.
 - **`dotnet-aspnetcore`** — the core domain here (Minimal APIs, middleware, ProblemDetails, OpenAPI, exception handling, API versioning).
 - **`dotnet-webapi`** — HTTP endpoint semantics, OpenAPI metadata, and error-handling shape for the Minimal-API surface these packages support.
 - **`dotnet`** — C# language server + general .NET development.

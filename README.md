@@ -10,7 +10,7 @@
 [![Main](https://github.com/JorgeCostaMacia/http-dotnet/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/JorgeCostaMacia/http-dotnet/actions/workflows/main.yml)
 [![Develop](https://github.com/JorgeCostaMacia/http-dotnet/actions/workflows/develop.yml/badge.svg?branch=develop)](https://github.com/JorgeCostaMacia/http-dotnet/actions/workflows/develop.yml)
 
-Part of the `JorgeCostaMacia.*` family, alongside [ddd-dotnet](https://github.com/JorgeCostaMacia/ddd-dotnet) (whose exception hierarchy these handlers map to HTTP), [bus-dotnet](https://github.com/JorgeCostaMacia/bus-dotnet) (messaging), [quartz-dotnet](https://github.com/JorgeCostaMacia/quartz-dotnet) and [serilog-dotnet](https://github.com/JorgeCostaMacia/serilog-dotnet). Moved out of [http-net](https://github.com/JorgeCostaMacia/http-net) in 5.0.0, keeping the package ids: 5.0.0 is a major because the exceptions come from `JorgeCostaMacia.DDD.Exception` 11.0.0.
+Part of the `JorgeCostaMacia.*` family, alongside [ddd-dotnet](https://github.com/JorgeCostaMacia/ddd-dotnet) (whose exception hierarchy these handlers map to HTTP), [bus-dotnet](https://github.com/JorgeCostaMacia/bus-dotnet) (messaging), [quartz-dotnet](https://github.com/JorgeCostaMacia/quartz-dotnet) and [serilog-dotnet](https://github.com/JorgeCostaMacia/serilog-dotnet).
 
 An independent project: it builds on ASP.NET Core through its own extension points (extensions on the options and builders the host already writes, middleware and exception handlers) and is not affiliated with Microsoft or the ASP.NET Core project.
 
@@ -31,9 +31,9 @@ The **.NET 10** SDK.
 | [JorgeCostaMacia.Http.ProblemDetails](https://www.nuget.org/packages/JorgeCostaMacia.Http.ProblemDetails/) | Enriched RFC 7807 ProblemDetails responses with domain metadata and per-field errors. |
 | [JorgeCostaMacia.Http.Serilog](https://www.nuget.org/packages/JorgeCostaMacia.Http.Serilog/) | Serilog request-logging middleware: body buffering, enrichment and a per-request summary. |
 
-## Upgrading from 4.x (http-net)
+## Upgrading
 
-Bump the packages to 5.0.0 together with `JorgeCostaMacia.DDD.Exception` 11.0.0 (ddd-dotnet), and rename `JorgeCostaMacia.Exception` to `JorgeCostaMacia.DDD.Exception` in your `using`s. Nothing else changed.
+What each version asks of you, when it asks anything, is in [CHANGELOG.md](CHANGELOG.md).
 
 ## Contact
 
